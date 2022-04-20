@@ -41,8 +41,8 @@ class Node:
 
 class Snake:
 	# spawn_pos takes in a tuple indicating snake's spawn point
-    def __init__(self, spawn_pos):
-        self._head = Node(spawn_pos, 'r')               # By default going rightward
+    def __init__(self, spawn_pos, spawn_dir):
+        self._head = Node(spawn_pos, spawn_dir)         # By default going rightward
         self._body = [self._head]                       # The body is a stack that stores all the nodes in the snake. body[0] is the head node
     
     # Accessors and Modifiers
