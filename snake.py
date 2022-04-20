@@ -14,7 +14,6 @@ class Node:
 		self._x 	= location[0]
 		self._y 	= location[1]
 		self._dir 	= direction
-        #self._rect  = None
 	
 	# Accessors and Modifiers
 	def get_x(self):
@@ -47,6 +46,10 @@ class Snake:
         self._body = [self._head]                       # The body is a stack that stores all the nodes in the snake. body[0] is the head node
     
     # Accessors and Modifiers
+    # Return head node's position
+    def get_head_pos(self):
+        return self._head.get_pos()
+    
     # Return head node's direction
     def get_head_dir(self):
         return self._head.get_dir()
@@ -118,49 +121,3 @@ class Snake:
                 continue
             self._body[i].set_dir(next_dir)
             next_dir = curr_dir
-
-'''
-    # Function to determine if the snake collided with an object
-    # This returns 0 if there are no collisions, 1 if it hits the good fruit, 2 if it hits the bad fruit, and 3 if it hits the wall.
-    def collide_with_obj(self, border_min, border_max, good_fruit_x, good_fruit_y, bad_fruit_x, bad_fruit_y):
-        result = 0
-        
-        if self.x == good_fruit_x and snake.y == good_fruit_y:   #snake collide with good fruit
-            result = 1
-        
-        elif self.x == bad_fruit_x and self.y == bad_fruit_y:   #snake collide with bad fruit
-            result = 2
-        
-        elif self.x <= border_min or self.x >= border_max or self.y <= border_min or self.y >= border_max:   # snake collide with wall
-            result = 3
-        
-        return result
-    
-    # Function to check if the snake collides with itself
-    # If the number of times it moves left == right and the number of times it moves up == down, then it collides with itself
-    def collide_with_self(self):
-        Right_Left = 0
-        Up_Down = 0
-        
-        i = 1
-        
-        while i < len(self.stack):
-            if self.stack[i] == 'r':
-                Right_Left += 1
-            
-            elif self.stack[i] == 'l':
-                Right_Left -= 1
-                
-            elif self.stack[i] == 'u':
-                Up_Down += 1
-                
-            elif self.stack[i] == 'd':
-                Up_Down -= 1
-                
-            if Right_Left == 0 and Up_Down == 0:
-                return True
-            
-            i += 1
-        
-        return False
-'''
