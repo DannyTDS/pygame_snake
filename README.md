@@ -1,10 +1,10 @@
 # Pygame_Snake
 Current Progress:
-✅ single player
-✅ lengthen / shorten snake
-✅ snake behavior after eating fruit
-✅ dying behavior
-✅ Pygame animation
+*✅ single player
+*✅ lengthen / shorten snake
+*✅ snake behavior after eating fruit
+*✅ dying behavior
+*✅ Pygame animation
 
 TODO:
 (Jackson)   UI homepage
