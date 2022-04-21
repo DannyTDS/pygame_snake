@@ -6,6 +6,7 @@ Pygame visualization.
 
 import sys, pygame
 from snake import Snake
+from button import Button
 
 width 		= 1200							# size of the window
 height 		= 800
@@ -57,6 +58,61 @@ def load_prefabs(prefab_paths):
 	return prefabs
 
 
+def load_homescreen(screen):
+	single_btn = Button(BLACK, 50, 200, WHITE, 'Single Player')
+	double_btn = Button(BLACK, 50, 300, WHITE, 'Multiplayer')
+	quit_btn   = Button(BLACK, 50, 400, WHITE, 'Quit')
+	
+	screen.fill(BLACK)
+	single_btn.draw(screen)
+	double_btn.draw(screen)
+	quit_btn.draw(screen)
+	pygame.display.flip()
+	
+	#Loop to get user choice
+	while 1:
+		pressed = False
+		
+		mouse_position = pygame.mouse.get_pos()
+		
+		single_btn.text_color = WHITE
+		double_btn.text_color = WHITE
+		quit_btn.text_color = WHITE
+		
+		# Turns the text red if you hover over it
+		if single_btn.rect.collidepoint(mouse_position):
+			single_btn.text_color = RED
+		elif double_btn.rect.collidepoint(mouse_position):
+			double_btn.text_color = RED
+		elif quit_btn.rect.collidepoint(mouse_position):
+			quit_btn.text_color = RED
+			
+		single_btn.draw(screen)
+		double_btn.draw(screen)
+		quit_btn.draw(screen)
+		
+		message_to_screen(screen, "©2022 Team Std::Boolin",
+			WHITE, (50, height-70), "small", "topleft")
+		message_to_screen(screen, "Ziang Tong, Jackson Ballow, Marcus Johnson, Syed Oeshic",
+			WHITE, (50, height-50), "small", "topleft")
+		
+		pygame.display.flip()
+		
+		for event in pygame.event.get():
+			if pygame.mouse.get_pressed() == (1, 0, 0):
+				pressed = True
+			if event.type == pygame.QUIT:
+				sys.exit()
+
+		# Go to single player or multiplayer based on what the user selects
+		if pressed:
+			if single_btn.rect.collidepoint(mouse_position):
+				return "single"
+			elif double_btn.rect.collidepoint(mouse_position):
+				return "double"
+			elif quit_btn.rect.collidepoint(mouse_position):
+				sys.exit()
+
 def pause(screen):
 	# pause the game until another key stroke
 	paused = True
@@ -74,8 +130,7 @@ def pause(screen):
 		pygame.display.update()
 
 
-def message_to_screen(screen, msg, color,
-	anchor, size, align):
+def message_to_screen(screen, msg, color, anchor, size, align):
 	# display text on appropriate location
 	# generate Font object
 	font_path = "./Assets/Fonts/Monaco.ttf"
@@ -271,7 +326,7 @@ def classic_game_over(screen, the_snake, score, prefabs, bg_color=BLACK):
 		RED, (width/2, height/2 - 10), "large", "center")
 	message_to_screen(screen, f"You scored: {score}",
 		WHITE, (width/2, height/2 + 20), "small", "center")
-	message_to_screen(screen, "Press any key to quit",
+	message_to_screen(screen, "Press R to restart, M to main menu, any other key to quit",
 		WHITE, (width/2, height/2 + 40), "small", "center")
 
 	pygame.display.update()
@@ -281,7 +336,12 @@ def classic_game_over(screen, the_snake, score, prefabs, bg_color=BLACK):
 	while True:
 		for event in pygame.event.get():
 			if event.type == pygame.KEYDOWN:
-				sys.exit()
+				if event.key == pygame.K_r:
+					return "restart"
+				elif event.key == pygame.K_m:
+					return "menu"
+				else:
+					return "quit"
 
 
 def combat_game_over(screen, player_A, player_B, prefabs, winner, bg_color=BLACK):
@@ -322,7 +382,7 @@ def combat_game_over(screen, player_A, player_B, prefabs, winner, bg_color=BLACK
 
 	message_to_screen(screen, f"Player {winner} Wins!",
 		RED, (width/2, height/2 - 10), "large", "center")
-	message_to_screen(screen, "Press any key to quit",
+	message_to_screen(screen, "Press R to restart, M to main menu, any other key to quit",
 		WHITE, (width/2, height/2 + 40), "small", "center")
 
 	pygame.display.update()
@@ -332,4 +392,9 @@ def combat_game_over(screen, player_A, player_B, prefabs, winner, bg_color=BLACK
 	while True:
 		for event in pygame.event.get():
 			if event.type == pygame.KEYDOWN:
-				sys.exit()
+				if event.key == pygame.K_r:
+					return "restart"
+				elif event.key == pygame.K_m:
+					return "menu"
+				else:
+					return "quit"

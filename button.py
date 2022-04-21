@@ -1,15 +1,8 @@
 import sys, pygame
 
-width 		= 1200							# size of the window
-height 		= 800
-types		= ("gd", "gd", "bd")
-
-# Colors
-BLACK 	= (0, 0, 0)
-WHITE 	= (255, 255, 255)
-RED 	= (255, 0, 0)
-GREEN	= (0, 255, 0)
-BLUE	= (0, 0, 255)
+# default button sizes
+btn_width = 700
+btn_height = 300
 
 # Button Class
 class Button():
@@ -20,16 +13,20 @@ class Button():
         self.y = y
         self.text = text
         self.text_color = text_color
+        self.rect = None
 
     #Method to draw the button
     def draw(self,win):
-        pygame.draw.rect(win, True, (self.x, self.y, self.x+700, self.y+300))
+        # pygame.draw.rect(win, True, (self.x, self.y, self.x+btn_width, self.y+btn_height))
             
-        pygame.draw.rect(win, self.color, (self.x, self.y, self.x + 700, self.y + 300),0)
+        # pygame.draw.rect(win, self.color, (self.x, self.y, self.x+btn_width, self.y+btn_height),0)
         
-        font = pygame.font.SysFont('arial', 60)
+        font_path = "./Assets/Fonts/Monaco.ttf"
+        font = pygame.font.Font(font_path, 32)
+        font.set_bold(True)
         
-        text = font.render(self.text, 1, self.text_color)
+        text = font.render(self.text, True, self.text_color)
+        btn_rect = text.get_rect(topleft=(self.x, self.y))
         
-        win.blit(text, (self.x + (350 - text.get_width()/2), self.y + (150 - text.get_height()/2)))
-
+        win.blit(text, btn_rect)
+        self.rect = btn_rect

@@ -7,6 +7,7 @@ to start the game.
 import sys, pygame
 from snake import Snake
 from fruit import Fruit
+from button import Button
 import game_manager as gm
 
 
@@ -61,10 +62,22 @@ def main():
 	# initialize screen and load prefabs
 	screen 	= gm.setup((width, height))
 	prefabs = gm.load_prefabs(prefab_paths)
+	next_step = "menu"
 	
-	# start_classic(screen, prefabs)
-	
-	start_combat(screen, prefabs)
+	while 1:
+		if next_step == "menu":
+			game_mode = gm.load_homescreen(screen)
+			if game_mode == "single":
+				next_step = start_classic(screen, prefabs)
+			elif game_mode == "double":
+				next_step = start_combat(screen, prefabs)
+		elif next_step == "restart":
+			if game_mode == "single":
+				next_step = start_classic(screen, prefabs)
+			elif game_mode == "double":
+				next_step = start_combat(screen, prefabs)
+		elif next_step == "quit":
+			sys.exit()
 
 
 # Single player mode
@@ -123,7 +136,8 @@ def start_classic(screen, prefabs):
 		
 		# check if game over
 		if (not the_snake.is_alive() or gm.self_collision(the_snake)):
-			gm.classic_game_over(screen, the_snake, score, prefabs)
+			next_step = gm.classic_game_over(screen, the_snake, score, prefabs)
+			return next_step
 		
 		pygame.time.wait(frame_time)
 		
@@ -142,13 +156,13 @@ def start_combat(screen, prefabs):
 	3. die when crash into the other snake
 	4. faster fruit generation
 	'''
-	player_A = Snake((40, 40), 'r')
-	player_B = Snake((width-40, height-40), 'l')
+	player_A = Snake((120, 120), 'r')
+	player_B = Snake((width-120, height-120), 'l')
 	for i in range(2):
 		player_A.add_body()
 		player_B.add_body()
 
-# initialize screen color and score
+	# initialize screen color and score
 	fruit_interval = 500
 	fruit_cooldown = 0
 	active_fruits = []
@@ -209,9 +223,11 @@ def start_combat(screen, prefabs):
 		
 		# check if game over
 		if (not player_A.is_alive() or gm.collide_into(player_A, player_B)):
-			gm.combat_game_over(screen, player_A, player_B, prefabs, "B")
+			next_step = gm.combat_game_over(screen, player_A, player_B, prefabs, "B")
+			return next_step
 		if (not player_B.is_alive() or gm.collide_into(player_B, player_A)):
-			gm.combat_game_over(screen, player_A, player_B, prefabs, "A")
+			next_step = gm.combat_game_over(screen, player_A, player_B, prefabs, "A")
+			return next_step
 		
 		pygame.time.wait(frame_time)
 		
