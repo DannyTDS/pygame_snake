@@ -1,5 +1,6 @@
 # Pygame_Snake
 ## Current Progress:
+* Main menu for selecting mode
 * single player
 * double players, competition mode
 * lengthen / shorten snake
