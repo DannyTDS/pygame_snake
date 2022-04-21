@@ -1,14 +1,15 @@
 # Pygame_Snake
 ## Current Progress:
 * Main menu for selecting mode
-* single player
-* double players, competition mode
-* lengthen / shorten snake
-* snake behavior after eating fruit
-* dying behavior
+* Single player
+* Double players, competition mode
+* Lengthen / shorten snake
+* Snake behavior after eating fruit
+* Dying behavior
 * Pygame animation
 
 ## TODO:
+* Homescreen Design
 
 ## How to Run
 * Download all files, including the Assets folder.
