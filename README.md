@@ -8,7 +8,6 @@
 * Pygame animation
 
 ## TODO:
-* (Jackson)   UI homepage
 
 ## How to Run
 * Download all files, including the Assets folder.
