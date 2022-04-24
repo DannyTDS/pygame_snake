@@ -9,7 +9,7 @@
 * Pygame animation
 
 ## TODO:
-* Homescreen Design
+* Final write-up & demo
 
 ## How to Run
 * Download all files, including the Assets folder.
