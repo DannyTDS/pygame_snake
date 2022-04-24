@@ -11,6 +11,8 @@ from button import Button
 width 		= 1200							# size of the window
 height 		= 800
 
+home_pic_path = "./Assets/snake_home.png"
+
 # color syntax sugars
 BLACK 	= (0, 0, 0)
 WHITE 	= (255, 255, 255)
@@ -67,6 +69,13 @@ def load_homescreen(screen):
 	single_btn.draw(screen)
 	double_btn.draw(screen)
 	quit_btn.draw(screen)
+	
+	# cover picture
+	home_pic = pygame.image.load(home_pic_path)
+	home_pic = pygame.transform.scale(home_pic, (600, 600))
+	home_pic_rect = home_pic.get_rect(center=(width-400, 300))
+	screen.blit(home_pic, home_pic_rect)
+	
 	pygame.display.flip()
 	
 	#Loop to get user choice
@@ -92,9 +101,11 @@ def load_homescreen(screen):
 		quit_btn.draw(screen)
 		
 		message_to_screen(screen, "©2022 Team Std::Boolin",
-			WHITE, (50, height-70), "small", "topleft")
+			WHITE, (width/2, height-70), "small", "center")
 		message_to_screen(screen, "Ziang Tong, Jackson Ballow, Marcus Johnson, Syed Oeshic",
-			WHITE, (50, height-50), "small", "topleft")
+			WHITE, (width/2, height-50), "small", "center")
+		
+		screen.blit(home_pic, home_pic_rect)
 		
 		pygame.display.flip()
 		
@@ -326,7 +337,7 @@ def classic_game_over(screen, the_snake, score, prefabs, bg_color=BLACK):
 		RED, (width/2, height/2 - 10), "large", "center")
 	message_to_screen(screen, f"You scored: {score}",
 		WHITE, (width/2, height/2 + 20), "small", "center")
-	message_to_screen(screen, "Press R to restart, M to main menu, any other key to quit",
+	message_to_screen(screen, "Press R to restart, M to main menu, Q to quit",
 		WHITE, (width/2, height/2 + 40), "small", "center")
 
 	pygame.display.update()
@@ -340,7 +351,7 @@ def classic_game_over(screen, the_snake, score, prefabs, bg_color=BLACK):
 					return "restart"
 				elif event.key == pygame.K_m:
 					return "menu"
-				else:
+				elif event.key == pygame.K_q:
 					return "quit"
 
 
@@ -382,7 +393,7 @@ def combat_game_over(screen, player_A, player_B, prefabs, winner, bg_color=BLACK
 
 	message_to_screen(screen, f"Player {winner} Wins!",
 		RED, (width/2, height/2 - 10), "large", "center")
-	message_to_screen(screen, "Press R to restart, M to main menu, any other key to quit",
+	message_to_screen(screen, "Press R to restart, M to main menu, Q to quit",
 		WHITE, (width/2, height/2 + 40), "small", "center")
 
 	pygame.display.update()
@@ -396,5 +407,5 @@ def combat_game_over(screen, player_A, player_B, prefabs, winner, bg_color=BLACK
 					return "restart"
 				elif event.key == pygame.K_m:
 					return "menu"
-				else:
+				elif event.key == pygame.K_q:
 					return "quit"

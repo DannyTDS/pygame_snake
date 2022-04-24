@@ -50,7 +50,7 @@ playerB_turning_keys = [
 
 # GLOBALS
 width 		= 1200							# size of the window
-height 		= 800
+height 		= 800 
 speed 		= 20							# player speed
 direction 	= 'r'							# player direction
 bg_color 	= BLACK							# background color, in RGB
