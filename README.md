@@ -1,3 +1,5 @@
+![Cover Image](cover.JPG)
+
 # Pygame_Snake
 ## Current Progress:
 * Main menu for selecting mode
